@@ -1,17 +1,15 @@
+#!/bin/bash
+# Description: config ssr
+
 ### clone shadowsocksr
-```
 git clone --branch akkariiin/master https://github.com/shadowsocksrr/shadowsocksr.git
-```
 
 ### init config
-```
 cd shadowsocksr
 bash initcfg.sh
-```
 
 ### modify config.json
-```
-vim user-config.json
+cat > user-config.json <<-EOF
 {
     "server": "0.0.0.0",
     "server_ipv6": "::",
@@ -37,13 +35,12 @@ vim user-config.json
     "redirect": "",
     "fast_open": false
 }
-```
+EOF
 
 ### systemd service
-```
 mkdir -p ~/.config/systemd/user
 cd ~/.config/systemd/user
-vim shadowsocksr.service
+cat > shadowsocksr.service <<-EOF
 [Unit]
 Description=Shadowsocks R Server Service
 After=default.target
@@ -55,11 +52,9 @@ Restart=on-abort
 
 [Install]
 WantedBy=default.target
-```
+EOF
 
 ### reload and start service
-```
 systemctl --user daemon-reload
 systemctl --user start shadowsocksr
 systemctl --user status shadowsocksr
-```
