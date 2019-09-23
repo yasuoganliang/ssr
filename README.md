@@ -61,5 +61,14 @@ WantedBy=default.target
 ```
 systemctl --user daemon-reload
 systemctl --user start shadowsocksr
+systemctl --user enable shadowsocksr
 systemctl --user status shadowsocksr
+```
+
+### 启用加速
+```
+git clone -b master https://github.com/flyzy2005/ss-fly
+ss-fly/ss-fly.sh -bbr
+重启系统
+sysctl net.ipv4.tcp_available_congestion_control // 返回有 bbr 设置成功
 ```
